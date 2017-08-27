@@ -74,10 +74,10 @@
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
-#define SHOW_BOOTSCREEN
-#define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
-#define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
+#define STRING_CONFIG_H_AUTHOR "(3DFreezeMe)" // 3DFreezeMe // Who made the changes.
+//#define SHOW_BOOTSCREEN // 3DFreezeMe
+//#define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // 3DFreezeMe // will be shown during bootup in line 1
+//#define STRING_SPLASH_LINE2 WEBSITE_URL         // 3DFreezeMe // will be shown during bootup in line 2
 
 //
 // *** VENDORS PLEASE READ *****************************************************
@@ -118,12 +118,12 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #define MOTHERBOARD BOARD_MKS_BASE // 3DFreezeMe
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-//#define CUSTOM_MACHINE_NAME "3D Printer"
+#define CUSTOM_MACHINE_NAME "Ender-2" // 3DFreezeMe
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -173,6 +173,21 @@
   #define SWITCHING_NOZZLE_SERVO_NR 0
   #define SWITCHING_NOZZLE_SERVO_ANGLES { 0, 90 }   // Angles for E0, E1
   //#define HOTEND_OFFSET_Z { 0.0, 0.0 }
+#endif
+
+/**
+ * Two separate X-carriages with extruders that connect to a moving part
+ * via a magnetic docking mechanism. Requires SOL1_PIN and SOL2_PIN.
+ */
+//#define PARKING_EXTRUDER
+#if ENABLED(PARKING_EXTRUDER)
+  #define PARKING_EXTRUDER_SOLENOIDS_INVERT           // If enabled, the solenoid not magnetized with applied voltage
+  #define PARKING_EXTRUDER_SOLENOIDS_PINS_ACTIVE LOW  // LOW or HIGH pin signal energizes the coil
+  #define PARKING_EXTRUDER_SOLENOIDS_DELAY 250        // Delay (ms) for magnetic field. No delay if 0 or not defined.
+  #define PARKING_EXTRUDER_PARKING_X { -78, 184 }     // X positions for parking the extruders
+  #define PARKING_EXTRUDER_GRAB_DISTANCE 1            // mm to move beyond the parking point to grab the extruder
+  #define PARKING_EXTRUDER_SECURITY_RAISE 5           // Z-raise before parking
+  #define HOTEND_OFFSET_Z { 0.0, 1.3 }                // Z-offsets of the two hotends. The first must be 0.
 #endif
 
 /**
@@ -272,7 +287,7 @@
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 5 // 3DFreezeMe
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
 #define DUMMY_THERMISTOR_998_VALUE 25
@@ -311,7 +326,7 @@
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
-#define BED_MAXTEMP 150
+#define BED_MAXTEMP 75 // 3DFreezeMe
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -335,10 +350,10 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  // Ultimaker
-  #define  DEFAULT_Kp 22.2
-  #define  DEFAULT_Ki 1.08
-  #define  DEFAULT_Kd 114
+  // Stock Ender-2 Hotend fan 100% // 3DFreezeMe
+  #define  DEFAULT_Kp 21.73 // 3DFreezeMe
+  #define  DEFAULT_Ki 1.54 // 3DFreezeMe
+  #define  DEFAULT_Kd 76.55 // 3DFreezeMe
 
   // MakerGear
   //#define  DEFAULT_Kp 7.0
@@ -405,7 +420,7 @@
 // This option prevents a single extrusion longer than EXTRUDE_MAXLENGTH.
 // Note that for Bowden Extruders a too-small value here may prevent loading.
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200
+#define EXTRUDE_MAXLENGTH 500 // 3DFreezeMe
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -458,7 +473,7 @@
 //#define USE_ZMAX_PLUG
 
 // coarse Endstop Settings
-#define ENDSTOPPULLUPS // Comment this out (using // at the start of the line) to disable the endstop pullup resistors
+#define ENDSTOPPULLUPS // 3DFreezeMe // Comment this out (using // at the start of the line) to disable the endstop pullup resistors
 
 #if DISABLED(ENDSTOPPULLUPS)
   // fine endstop settings: Individual pullups. will be ignored if ENDSTOPPULLUPS is defined
@@ -509,14 +524,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 4000, 500 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 93 } // 3DFreezeMe
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 500, 500, 5, 25 } // 3DFreezeMe
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -524,7 +539,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 500, 500, 100, 5000 } // 3DFreezeMe
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -534,9 +549,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  3000    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   3000    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          500    // 3DFreezeMe // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  500    // 3DFreezeMe // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   1000   // 3DFreezeMe // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk (mm/s)
@@ -550,7 +565,6 @@
 #define DEFAULT_YJERK                 20.0
 #define DEFAULT_ZJERK                  0.4
 #define DEFAULT_EJERK                  5.0
-
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -593,7 +607,7 @@
  * Probe Type
  *
  * Allen Key Probes, Servo Probes, Z-Sled Probes, FIX_MOUNTED_PROBE, etc.
- * You must activate one of these to use Auto Bed Leveling below.
+ * Activate one of these to use Auto Bed Leveling below.
  */
 
 /**
@@ -624,14 +638,15 @@
 #endif
 
 /**
- * Enable if probing seems unreliable. Heaters and/or fans - consistent with the
- * options selected below - will be disabled during probing so as to minimize
- * potential EM interference by quieting/silencing the source of the 'noise' (the change
- * in current flowing through the wires).  This is likely most useful to users of the
- * BLTouch probe, but may also help those with inductive or other probe types.
+ * Enable one or more of the following if probing seems unreliable.
+ * Heaters and/or fans can be disabled during probing to minimize electrical
+ * noise. A delay can also be added to allow noise and vibration to settle.
+ * These options are most useful for the BLTouch probe, but may also improve
+ * readings with inductive probes and piezo sensors.
  */
 //#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 //#define PROBING_FANS_OFF          // Turn fans off when probing
+//#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
 // A probe that is deployed and stowed with a solenoid pin (SOL1_PIN)
 //#define SOLENOID_PROBE
@@ -727,8 +742,8 @@
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
+#define INVERT_Y_DIR false // 3DFreezeMe
+#define INVERT_Z_DIR true // 3DFreezeMe
 
 // Enable this option for Toshiba stepper drivers
 //#define CONFIG_STEPPERS_TOSHIBA
@@ -755,13 +770,17 @@
 
 // @section machine
 
-// Travel limits after homing (units are in mm)
+// The size of the print bed
+#define X_BED_SIZE 165 // 3DFreezeMe
+#define Y_BED_SIZE 165 // 3DFreezeMe
+
+// Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS 200
-#define Y_MAX_POS 200
-#define Z_MAX_POS 200
+#define X_MAX_POS X_BED_SIZE
+#define Y_MAX_POS Y_BED_SIZE
+#define Z_MAX_POS 225 // 3DFreezeMe
 
 // If enabled, axes won't move below MIN_POS in response to movement commands.
 #define MIN_SOFTWARE_ENDSTOPS
@@ -910,7 +929,7 @@
   #define UBL_PROBE_PT_3_X 180
   #define UBL_PROBE_PT_3_Y 20
 
-  #define UBL_G26_MESH_VALIDATION   // Enable G26 mesh validation
+  //#define UBL_G26_MESH_VALIDATION // Enable G26 mesh validation
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
 
 #elif ENABLED(MESH_BED_LEVELING)
@@ -936,6 +955,7 @@
 #if ENABLED(LCD_BED_LEVELING)
   #define MBL_Z_STEP 0.025    // Step size while manually probing Z axis.
   #define LCD_PROBE_Z_RANGE 4 // Z Range centered on Z_MIN_POS for LCD Z adjustment
+  #define LEVEL_BED_CORNERS   // Add an option to move between corners
 #endif
 
 /**
@@ -968,8 +988,8 @@
 //#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
-  #define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
+  #define Z_SAFE_HOMING_X_POINT ((X_BED_SIZE) / 2)    // X point for Z homing when homing all axis (G28).
+  #define Z_SAFE_HOMING_Y_POINT ((Y_BED_SIZE) / 2)    // Y point for Z homing when homing all axis (G28).
 #endif
 
 // Homing speeds (mm/m)
@@ -990,7 +1010,7 @@
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //
-//#define EEPROM_SETTINGS // Enable for M500 and M501 commands
+#define EEPROM_SETTINGS // Enable for M500 and M501 commands // 3DFreezeMe
 //#define DISABLE_M503    // Saves ~2700 bytes of PROGMEM. Disable for release!
 #define EEPROM_CHITCHAT   // Give feedback on EEPROM commands. Disable to save PROGMEM.
 
@@ -1002,6 +1022,7 @@
 //
 #define HOST_KEEPALIVE_FEATURE        // Disable this if your host doesn't like keepalive messages
 #define DEFAULT_KEEPALIVE_INTERVAL 2  // Number of seconds between "busy" messages. Set with M113.
+#define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
 //
 // M100 Free Memory Watcher
@@ -1021,12 +1042,12 @@
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     70
+#define PREHEAT_1_TEMP_HOTEND 205 // 3DFreezeMe
+#define PREHEAT_1_TEMP_BED     45 // 3DFreezeMe
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
-#define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    110
+#define PREHEAT_2_TEMP_HOTEND 235 // 3DFreezeMe
+#define PREHEAT_2_TEMP_BED    65 // 3DFreezeMe
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**
@@ -1304,12 +1325,6 @@
 //#define ULTIPANEL
 
 //
-// Cartesio UI
-// http://mauk.cc/webshop/cartesio-shop/electronics/user-interface
-//
-//#define CARTESIO_UI
-
-//
 // PanelOne from T3P3 (via RAMPS 1.4 AUX2/AUX3)
 // http://reprap.org/wiki/PanelOne
 //
@@ -1390,6 +1405,12 @@
 // default with the BQ Hephestos 2 and Witbox 2.
 //
 //#define BQ_LCD_SMART_CONTROLLER
+
+//
+// Cartesio UI
+// http://mauk.cc/webshop/cartesio-shop/electronics/user-interface
+//
+//#define CARTESIO_UI
 
 //
 // ANET_10 Controller supported displays.
@@ -1550,6 +1571,14 @@
   #define RGB_LED_W_PIN -1
 #endif
 
+// Support for Adafruit Neopixel LED driver
+//#define NEOPIXEL_RGBW_LED
+#if ENABLED(NEOPIXEL_RGBW_LED)
+  #define NEOPIXEL_PIN    4       // D4 (EXP2-5 on Printrboard)
+  #define NEOPIXEL_PIXELS 3
+  //#define NEOPIXEL_STARTUP_TEST // Cycle through colors at startup
+#endif
+
 /**
  * Printer Event LEDs
  *
@@ -1561,7 +1590,7 @@
  *  - Change to green once print has finished
  *  - Turn off after the print has finished and the user has pushed a button
  */
-#if ENABLED(BLINKM) || ENABLED(RGB_LED) || ENABLED(RGBW_LED) || ENABLED(PCA9632)
+#if ENABLED(BLINKM) || ENABLED(RGB_LED) || ENABLED(RGBW_LED) || ENABLED(PCA9632) || ENABLED(NEOPIXEL_RGBW_LED)
   #define PRINTER_EVENT_LEDS
 #endif
 
