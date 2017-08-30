@@ -75,9 +75,9 @@
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
 #define STRING_CONFIG_H_AUTHOR "(3DFreezeMe)" // 3DFreezeMe // Who made the changes.
-//#define SHOW_BOOTSCREEN // 3DFreezeMe
-//#define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // 3DFreezeMe // will be shown during bootup in line 1
-//#define STRING_SPLASH_LINE2 WEBSITE_URL         // 3DFreezeMe // will be shown during bootup in line 2
+#define SHOW_BOOTSCREEN // 3DFreezeMe
+#define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // 3DFreezeMe // will be shown during bootup in line 1
+#define STRING_SPLASH_LINE2 WEBSITE_URL         // 3DFreezeMe // will be shown during bootup in line 2
 
 //
 // *** VENDORS PLEASE READ *****************************************************
@@ -90,7 +90,7 @@
 // boot image unmodified. For an example have a look at the bq Hephestos 2
 // example configuration folder.
 //
-//#define SHOW_CUSTOM_BOOTSCREEN
+#define SHOW_CUSTOM_BOOTSCREEN // 3DFreezeMe
 // @section machine
 
 /**
@@ -110,7 +110,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000]
  */
-#define BAUDRATE 250000
+#define BAUDRATE 115200 // 3DFreezeMe
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -118,7 +118,7 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_MKS_BASE // 3DFreezeMe
+  #define MOTHERBOARD BOARD_MELZI_CREALITY // 3DFreezeMe
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
@@ -473,7 +473,7 @@
 //#define USE_ZMAX_PLUG
 
 // coarse Endstop Settings
-#define ENDSTOPPULLUPS // 3DFreezeMe // Comment this out (using // at the start of the line) to disable the endstop pullup resistors
+#define ENDSTOPPULLUPS // Comment this out (using // at the start of the line) to disable the endstop pullup resistors
 
 #if DISABLED(ENDSTOPPULLUPS)
   // fine endstop settings: Individual pullups. will be ignored if ENDSTOPPULLUPS is defined
@@ -741,9 +741,9 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
-#define INVERT_Y_DIR false // 3DFreezeMe
-#define INVERT_Z_DIR true // 3DFreezeMe
+#define INVERT_X_DIR true // 3DFreezeMe
+#define INVERT_Y_DIR true
+#define INVERT_Z_DIR false
 
 // Enable this option for Toshiba stepper drivers
 //#define CONFIG_STEPPERS_TOSHIBA
@@ -751,7 +751,7 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+#define INVERT_E0_DIR true // 3DFreezeMe
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
@@ -1224,7 +1224,7 @@
  * you must uncomment the following option or it won't work.
  *
  */
-//#define SDSUPPORT
+#define SDSUPPORT
 
 /**
  * SD CARD: SPI SPEED
@@ -1249,13 +1249,13 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-//#define ENCODER_PULSES_PER_STEP 1
+#define ENCODER_PULSES_PER_STEP 4 // 3DFreezeMe
 
 //
 // Use this option to override the number of step signals required to
 // move between next/prev menu items.
 //
-//#define ENCODER_STEPS_PER_MENU_ITEM 5
+#define ENCODER_STEPS_PER_MENU_ITEM 1 // 3DFreezeMe
 
 /**
  * Encoder Direction Options
@@ -1382,7 +1382,7 @@
 // MakerLab Mini Panel with graphic
 // controller and SD support - http://reprap.org/wiki/Mini_panel
 //
-//#define MINIPANEL
+#define MINIPANEL // 3DFreezeMe
 
 //
 // RepRapWorld REPRAPWORLD_KEYPAD v1.1
