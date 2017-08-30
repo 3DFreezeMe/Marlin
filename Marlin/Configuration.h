@@ -90,7 +90,7 @@
 // boot image unmodified. For an example have a look at the bq Hephestos 2
 // example configuration folder.
 //
-#define SHOW_CUSTOM_BOOTSCREEN // 3DFreezeMe
+//#define SHOW_CUSTOM_BOOTSCREEN
 // @section machine
 
 /**
